@@ -1,0 +1,46 @@
+SELECTION SORTING {T.C :O(N^2) ,S.C : 0(n)}
+It is comparison-based,stable,in-place,used for smaller datasets.
+Code:
+void selection(int arr[], int n)  
+{  
+    int i, j, small;  
+      
+    for (i = 0; i < n-1; i++)    // One by one move boundary of unsorted subarray  
+    {  
+        small = i; //minimum element in unsorted array  
+          
+        for (j = i+1; j < n; j++)  
+        if (arr[j] < arr[small])  
+            small = j;  
+// Swap the minimum element with the first element  
+    int temp = arr[small];  
+    arr[small] = arr[i];  
+    arr[i] = temp;  
+    }  
+}  
+
+
+INSERTION SORT {T.C:Best case-O(n) AVG and worst case -O(n^2) ,S.C -O(1)}
+It is comparison-based,stable,in-place,used for smaller datasets.
+Code:
+class InsertionSort {
+  
+    // Function to sort array using insertion sort
+    void sort(int a[])
+    {
+        int n = a.length;
+        for (int i = 1; i < n; ++i) {
+            int k = a[i];
+            int j = i - 1;
+
+            // Move elements of arr[0..i-1], that are
+            // greater than key, to one position ahead
+            // of their current position
+            while (j >= 0 && a[j] > k) {
+                a[j + 1] = a[j];
+                j = j - 1;
+            }
+          
+            a[j + 1] = k;
+        }
+    }
