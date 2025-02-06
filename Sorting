@@ -1,5 +1,5 @@
 QUICKSORT {T.C-best&Avg case :O(nlogn) ,worst case :O(N^2),S.C -(logn)}
-It is fastest ,unstable and appopriate for large data sets.
+It is fastest ,unstable,in-place and appopriate for large data sets.
 Code:
  private int partition(int arr[], int begin, int end) {
     int pivot = arr[end];
@@ -21,3 +21,69 @@ Code:
 
     return i+1;
 }
+
+
+MERGE SORT {T.C-O(nlogn)
+Similar like quick sort , stable, not in-place , slower than quick sort ,preferrable used for link list.
+Code:
+class MergeSort {
+    
+    // Main function to sort an array using Merge Sort
+    void mergeSort(int arr[], int left, int right) {
+        if (left < right) {
+            // Find the middle point
+            int mid = left + (right - left) / 2;
+
+            // Recursively sort first and second halves
+            mergeSort(arr, left, mid);
+            mergeSort(arr, mid + 1, right);
+
+            // Merge the sorted halves
+            merge(arr, left, mid, right);
+        }
+    }
+
+    // Function to merge two subarrays
+    void merge(int arr[], int left, int mid, int right) {
+        // Sizes of two subarrays
+        int leftSize = mid - left + 1;
+        int rightSize = right - mid;
+
+        // Create temporary arrays
+        int leftArray[] = new int[leftSize];
+        int rightArray[] = new int[rightSize];
+
+        // Copy data into temporary arrays
+        for (int i = 0; i < leftSize; i++)
+            leftArray[i] = arr[left + i];
+
+        for (int j = 0; j < rightSize; j++)
+            rightArray[j] = arr[mid + 1 + j];
+
+        // Merge the two subarrays back into the original array
+        int i = 0, j = 0, k = left;
+        while (i < leftSize && j < rightSize) {
+            if (leftArray[i] <= rightArray[j]) {
+                arr[k] = leftArray[i];
+                i++;
+            } else {
+                arr[k] = rightArray[j];
+                j++;
+            }
+            k++;
+        }
+
+        // Copy remaining elements of leftArray, if any
+        while (i < leftSize) {
+            arr[k] = leftArray[i];
+            i++;
+            k++;
+        }
+
+        // Copy remaining elements of rightArray, if any
+        while (j < rightSize) {
+            arr[k] = rightArray[j];
+            j++;
+            k++;
+        }
+    }
