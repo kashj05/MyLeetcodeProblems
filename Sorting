@@ -1,0 +1,23 @@
+QUICKSORT {T.C-best&Avg case :O(nlogn) ,worst case :O(N^2),S.C -(logn)}
+It is fastest ,unstable and appopriate for large data sets.
+Code:
+ private int partition(int arr[], int begin, int end) {
+    int pivot = arr[end];
+    int i = (begin-1);
+
+    for (int j = begin; j < end; j++) {
+        if (arr[j] <= pivot) {
+            i++;
+
+            int swapTemp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = swapTemp;
+        }
+    }
+
+    int swapTemp = arr[i+1];
+    arr[i+1] = arr[end];
+    arr[end] = swapTemp;
+
+    return i+1;
+}
