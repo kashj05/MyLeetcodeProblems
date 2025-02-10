@@ -1,2 +1,44 @@
 Q.1 Reverse LL 
+public ListNode reverseList(ListNode head) {
+        ListNode prev=null;
+        ListNode next=null;
+        ListNode curr=head;
+        while(curr!=null){
+            next=curr.next;
+            curr.next=prev;
+            prev=curr;
+            curr=next;
+        }
+        return prev;
+    }
+Q.2 Reverse LL II
+class Solution {
+    public ListNode reverseBetween(ListNode head, int left, int right) {
+        ListNode dummy=new ListNode(0);
+        dummy.next=head;
 
+        ListNode leftpre=dummy;
+        ListNode curr=head;
+
+        for(int i=0;i<left-1;i++){
+            leftpre=leftpre.next;
+            curr=curr.next;
+        }
+
+        ListNode sublisthead=curr;
+
+        ListNode prenode=null;
+
+        for(int i=0;i<=right-left;i++){
+            ListNode nextnode=curr.next;
+            curr.next=prenode;
+            prenode=curr;
+            curr=nextnode;
+        }
+
+        leftpre.next=prenode;
+        sublisthead.next=curr;
+
+        return dummy.next;
+    }
+}
