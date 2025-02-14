@@ -1,0 +1,15 @@
+class Solution {
+    public String removeStars(String s) {
+        StringBuilder sb = new StringBuilder();
+        
+        for (char c : s.toCharArray()) {
+            if (c == '*') {
+                sb.deleteCharAt(sb.length() - 1); // Remove last character
+            } else {
+                sb.append(c); // Add current character
+            }
+        }
+        
+        return sb.toString();
+    }
+}
