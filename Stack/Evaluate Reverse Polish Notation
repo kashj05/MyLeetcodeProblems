@@ -1,1 +1,40 @@
-
+class Solution {
+    public int evalRPN(String[] tokens) {
+        // Create a stack to hold integer operands.
+        Stack<Integer> stack = new Stack<>();
+        
+        // Iterate over each token in the input array.
+        for (String token : tokens) {
+            // Check if the token is one of the operators.
+            if (token.equals("+") || token.equals("-") || token.equals("*") || token.equals("/")) {
+                // Pop two operands from the stack.
+                int b = stack.pop();  // Second operand
+                int a = stack.pop();  // First operand
+                
+                int result = 0;
+                // Apply the operator on the two operands.
+                switch (token) {
+                    case "+":
+                        result = a + b;
+                        break;
+                    case "-":
+                        result = a - b;
+                        break;
+                    case "*":
+                        result = a * b;
+                        break;
+                    case "/":
+                        // Integer division is assumed.
+                        result = a / b;
+                        break;
+                }
+                // Push the result back onto the stack.
+                stack.push(result);
+            } else {
+                // If the token is not an operator, parse it as an integer and push it onto the stack.
+                stack.push(Integer.parseInt(token));
+            }
+        }
+        // At the end, the stack will contain the result of the expression.
+        return stack.pop();
+    }
