@@ -1,1 +1,23 @@
+class Solution {
+    int maxcnt=0;
+    public int longestZigZag(TreeNode root) {
+        zigzagcnt(root,0,0);
+        zigzagcnt(root,1,0);
+        return maxcnt;
+    }
+    public void zigzagcnt(TreeNode root,int dir,int currlength){
+       if(root==null){
+          return;
+       }
+       maxcnt=Math.max(maxcnt,currlength);
+       if(dir==1){
+         zigzagcnt(root.left,0,currlength+1);
+         zigzagcnt(root.right,1,1);
+       }else{
+         zigzagcnt(root.right,1,currlength+1);
+         zigzagcnt(root.left,0,1);
+       }
+       
+    }
+}
 
