@@ -1,12 +1,23 @@
 class Solution {
-    public int pathSum(TreeNode root, int targetSum) {
-        if (root == null) return 0;
-        return countPaths(root, targetSum) + pathSum(root.left, targetSum) + pathSum(root.right, targetSum);
+    int ctr =0;
+    public int pathSum(TreeNode root, int sum) {
+        if(root == null)
+            return 0;
+        PSH(root,sum,0);
+        pathSum(root.left,sum);
+        pathSum(root.right,sum);
+
+        return ctr;
     }
 
-    private int countPaths(TreeNode node, int targetSum) {
-        if (node == null) return 0;
-        return (node.val == targetSum ? 1 : 0) + countPaths(node.left, targetSum - node.val) + countPaths(node.right, targetSum - node.val);
+    void PSH(TreeNode rt , int s , long currS)
+    {
+        if(rt==null)
+            return;
+        currS += rt.val;
+        if(currS == s)
+            ctr++;
+        PSH(rt.left,s,currS);
+        PSH(rt.right,s,currS); 
     }
 }
-
