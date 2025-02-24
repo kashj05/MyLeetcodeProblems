@@ -1,0 +1,25 @@
+import java.util.*;
+
+class Solution {
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> list = new ArrayList<>();
+        List<Integer> templist = new ArrayList<>();
+        backtrack(list, templist, target, 0, candidates);
+        return list;
+    }
+
+    public void backtrack(List<List<Integer>> list, List<Integer> templist, int target, int start, int[] candidates) {
+        if (target == 0) {
+            list.add(new ArrayList<>(templist));
+            return;
+        }
+        
+        for (int i = start; i < candidates.length; i++) {
+            if (target - candidates[i] < 0) continue; // Skip if target becomes negative
+            
+            templist.add(candidates[i]);  // Choose element
+            backtrack(list, templist, target - candidates[i], i, candidates); // Use same element again
+            templist.remove(templist.size() - 1);  // Backtrack
+        }
+    }
+}
