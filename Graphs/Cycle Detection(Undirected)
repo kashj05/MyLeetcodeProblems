@@ -1,0 +1,45 @@
+public static boolean detectCycle(ArrayList<Edge> graph []){
+       
+        //vistited array
+        boolean vis[] = new boolean[graph.length];
+
+        for(int i = 0; i<graph.length; i++){
+            if(!vis[i]){ //if the node is not visited and we are checking this again and again because graph may be present in parts so to check each part
+                if(detectCycleUtil(graph,vis,i,-1)){ // -1 as the start has no parent
+                    return true;
+                }
+
+            }
+        }
+
+        return false;
+    }
+
+    public static boolean detectCycleUtil(ArrayList<Edge> graph [],boolean vis[], int curr, int par){
+        
+        //mark the node true as visited
+        vis[curr] = true;
+        
+        
+        for(int i = 0; i<graph[curr].size(); i++){
+
+            Edge e = graph[curr].get(i);
+
+            //case 3 -> if the neighboure is not visited but after visiting if it detects the cycle the return true
+            if(!vis[e.dest] ){
+                if(detectCycleUtil(graph, vis, e.dest, curr)){
+                    return true;
+                }
+                
+            }
+
+            //case 1 
+            else if(vis[e.dest] && e.dest != par){
+                return true;
+            }
+
+            //case 2 do nothing continue
+        }
+
+        return false;
+    }
