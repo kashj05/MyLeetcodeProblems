@@ -1,0 +1,51 @@
+import java.util.*;
+
+class Solution {
+    public int[] findOrder(int numCourses, int[][] prerequisites) {
+        List<List<Integer>> graph = new ArrayList<>();
+        for (int i = 0; i < numCourses; i++) {
+            graph.add(new ArrayList<>());
+        }
+
+        // Build graph (prerequisite → course)
+        for (int[] prereq : prerequisites) {
+            graph.get(prereq[1]).add(prereq[0]);
+        }
+
+        boolean[] visited = new boolean[numCourses];  // Mark fully processed nodes
+        boolean[] inStack = new boolean[numCourses];  // Track nodes in recursion stack
+        Stack<Integer> stack = new Stack<>();         // Store course order
+
+        for (int i = 0; i < numCourses; i++) {
+            if (!visited[i] && dfs(graph, visited, inStack, stack, i)) {
+                return new int[0]; // Cycle detected
+            }
+        }
+
+        // Convert stack to result array
+        int[] order = new int[numCourses];
+        int index = 0;
+        while (!stack.isEmpty()) {
+            order[index++] = stack.pop();
+        }
+        return order;
+    }
+
+    private boolean dfs(List<List<Integer>> graph, boolean[] visited, boolean[] inStack, Stack<Integer> stack, int course) {
+        if (inStack[course]) return true; // Cycle detected
+        if (visited[course]) return false; // Already processed
+
+        visited[course] = true;
+        inStack[course] = true;
+
+        for (int neighbor : graph.get(course)) {
+            if (dfs(graph, visited, inStack, stack, neighbor)) {
+                return true;
+            }
+        }
+
+        inStack[course] = false; // Remove from recursion stack
+        stack.push(course); // Add course to stack in post-order
+        return false;
+    }
+}
