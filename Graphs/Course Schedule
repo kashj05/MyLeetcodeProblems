@@ -1,1 +1,43 @@
+import java.util.*;
+
+class Solution {
+    public boolean dfs(List<List<Integer>> graph, boolean[] visited, boolean[] recStack, int start) {
+        visited[start] = true;
+        recStack[start] = true;
+
+        for (int neighbor : graph.get(start)) {
+            if (recStack[neighbor]) {
+                return true; // Cycle detected
+            }
+            if (!visited[neighbor] && dfs(graph, visited, recStack, neighbor)) {
+                return true;
+            }
+        }
+
+        recStack[start] = false; // Backtrack
+        return false;
+    }
+
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        List<List<Integer>> graph = new ArrayList<>();
+        for (int i = 0; i < numCourses; i++) {
+            graph.add(new ArrayList<>());
+        }
+
+        // Correcting edge direction: prerequisite → course
+        for (int[] pair : prerequisites) {
+            graph.get(pair[1]).add(pair[0]); // Correct direction
+        }
+
+        boolean[] recStack = new boolean[numCourses];
+        boolean[] visited = new boolean[numCourses];
+
+        for (int i = 0; i < numCourses; i++) {
+            if (!visited[i] && dfs(graph, visited, recStack, i)) {
+                return false; // Cycle detected
+            }
+        }
+        return true;
+    }
+}
 
