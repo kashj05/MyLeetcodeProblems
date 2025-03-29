@@ -1,54 +1,64 @@
-class Solution {
-    static class Node{
-        Node children[] = new Node[26];
-        boolean ewo = false;
+import java.util.List;
 
-        public Node(){
-            for(int i=0; i<26; i++){
+class Solution {
+    static class Node {
+        Node children[] = new Node[26];
+        boolean eow = false;
+
+        public Node() {
+            for (int i = 0; i < 26; i++) {
                 children[i] = null;
             }
         }
     }
+
     public static Node root = new Node();
-    public static void insert(String words){
+
+    public static void insert(String word) {
         Node curr = root;
-        for(int i=0; i<words.length(); i++){
-            int idx = words.charAt(i) - 'a';
-            if(curr.children[idx] == null){
+        for (int i = 0; i < word.length(); i++) {
+            int idx = word.charAt(i) - 'a';
+            if (curr.children[idx] == null) {
                 curr.children[idx] = new Node();
             }
             curr = curr.children[idx];
         }
-        curr.ewo = true;
+        curr.eow = true;
     }
-    public static boolean search(String key, int start, int end){
-         Node curr = root;
-        for(int i=start; i<=end; i++){
+
+    public static boolean search(String key, int start, int end) {
+        Node curr = root;
+        for (int i = start; i <= end; i++) {
             int idx = key.charAt(i) - 'a';
-            if(curr.children[idx] == null){
+            if (curr.children[idx] == null) {
                 return false;
             }
             curr = curr.children[idx];
         }
-        return curr.ewo == true;
-    } 
-    
-    public boolean wordBreak(String s, List<String> wordDict) {
-        root = new Node();
-        for(String word: wordDict){
-            insert(word);
-        }  
-        int n = s.length();
-        boolean[] dp = new boolean[n];
+        return curr.eow;
+    }
 
-        for(int j=0; j<n; j++){
-            for(int i=0; i<=j; i++){
-                if(search(s, i, j)){
-                    dp[j] = (i-1 >=0)? dp[i-1] : true;
-                    if (dp[j]) break;
-                }
-            } 
+    public boolean wordBreak(String s, List<String> wordDict) {
+        root = new Node(); // Reset trie for every function call
+
+        // Insert words from dictionary into Trie
+        for (String word : wordDict) {
+            insert(word);
         }
-        return dp[n-1];
+
+        int n = s.length();
+        boolean[] dp = new boolean[n + 1]; // dp[i] represents if s[0...i-1] can be segmented
+        dp[0] = true; // Empty string is always segmentable
+
+        for (int j = 1; j <= n; j++) {
+            for (int i = 0; i < j; i++) {
+                if (dp[i] && search(s, i, j - 1)) {
+                    dp[j] = true;
+                    break;
+                }
+            }
+        }
+        return dp[n];
     }
 }
+
