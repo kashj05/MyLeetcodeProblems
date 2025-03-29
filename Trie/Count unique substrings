@@ -1,0 +1,48 @@
+find all suffix of a word.
+Create a trie for all the suffixes.
+total nodes in a trie = unique substrings 
+
+class TrieNode {
+    TrieNode[] children = new TrieNode[26]; // Assuming lowercase English letters
+}
+
+class Trie {
+    private TrieNode root;
+    private int nodeCount; // To count unique nodes
+
+    public Trie() {
+        root = new TrieNode();
+        nodeCount = 1; // Root node counts as one
+    }
+
+    public void insert(String s) {
+        TrieNode node = root;
+        for (char c : s.toCharArray()) {
+            int index = c - 'a';
+            if (node.children[index] == null) {
+                node.children[index] = new TrieNode();
+                nodeCount++; // Count each new node
+            }
+            node = node.children[index];
+        }
+    }
+
+    public int countUniqueSubstrings() {
+        return nodeCount - 1; // Exclude root
+    }
+}
+
+public class UniqueSubstringsTrie {
+    public static int countUniqueSubstrings(String s) {
+        Trie trie = new Trie();
+        for (int i = 0; i < s.length(); i++) {
+            trie.insert(s.substring(i)); // Insert all suffixes
+        }
+        return trie.countUniqueSubstrings();
+    }
+
+    public static void main(String[] args) {
+        String s = "ababa";
+        System.out.println("Unique substrings: " + countUniqueSubstrings(s));
+    }
+}
