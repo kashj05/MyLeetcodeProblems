@@ -1,0 +1,43 @@
+import java.util.*;
+
+class Solution {
+    public List<List<String>> suggestedProducts(String[] products, String searchWord) {
+        Arrays.sort(products);  // Sort products initially to avoid sorting multiple times
+        
+        Trie root = new Trie();
+        
+        // Insert words into Trie
+        for (String product : products) {
+            Trie node = root;
+            for (char c : product.toCharArray()) {
+                if (node.next[c - 'a'] == null) {
+                    node.next[c - 'a'] = new Trie();
+                }
+                node = node.next[c - 'a'];
+                
+                // Store only the top 3 lexicographically smallest words
+                if (node.words.size() < 3) {
+                    node.words.add(product);
+                }
+            }
+        }
+        
+        List<List<String>> result = new ArrayList<>();
+        Trie node = root;
+        
+        // Search the Trie for each character in searchWord
+        for (char c : searchWord.toCharArray()) {
+            if (node != null) {
+                node = node.next[c - 'a'];
+            }
+            result.add(node == null ? new ArrayList<>() : node.words);
+        }
+        
+        return result;
+    }
+}
+
+class Trie {
+    Trie[] next = new Trie[26];
+    List<String> words = new ArrayList<>();
+}
