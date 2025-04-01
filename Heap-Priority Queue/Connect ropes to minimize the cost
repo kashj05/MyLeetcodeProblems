@@ -1,0 +1,14 @@
+private static int minCostToConnectRopes(int[] arr){
+    PriorityQueue<Integer> pq = new PriorityQueue<>(); //min-heap
+    int cost=0;
+    for (int i : arr) {
+        pq.add(i);
+    }
+    while (pq.size() > 1){
+        int first = pq.poll();
+        int second = pq.poll();
+        pq.add(first + second);
+        cost += first + second;
+    }
+    return cost;
+}
