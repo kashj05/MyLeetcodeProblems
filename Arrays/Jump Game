@@ -1,0 +1,22 @@
+class JumpGame {
+    public boolean canJump(int[] nums) {
+        int maxReach = 0; // Farthest index that can be reached
+        
+        for (int i = 0; i < nums.length; i++) {
+            if (i > maxReach) {
+                return false; // If we reach an index beyond maxReach, we cannot proceed
+            }
+            maxReach = Math.max(maxReach, i + nums[i]); // Update maxReach
+            if (maxReach >= nums.length - 1) {
+                return true; // If maxReach covers the last index, return true
+            }
+        }
+        return true;
+    }
+
+    public static void main(String[] args) {
+        JumpGame game = new JumpGame();
+        int[] nums = {2, 3, 1, 1, 4}; // Example input
+        System.out.println(game.canJump(nums)); // Output: true
+    }
+}
