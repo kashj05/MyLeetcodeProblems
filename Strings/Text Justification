@@ -1,0 +1,52 @@
+class Solution {
+    public List<String> fullJustify(String[] words, int maxWidth) {
+        List<String> result = new ArrayList<>();
+        int i = 0;
+
+        while (i < words.length) {
+            int j = i + 1;
+            int lineLength = words[i].length();
+
+            // Try to fit as many words as possible into one line
+            while (j < words.length && lineLength + 1 + words[j].length() <= maxWidth) {
+                lineLength += 1 + words[j].length(); // 1 for space
+                j++;
+            }
+
+            int wordCount = j - i;
+            int totalSpaces = maxWidth - (lineLength - (wordCount - 1));
+            StringBuilder line = new StringBuilder();
+
+            // Case 1: Last line or only one word in the line
+            if (j == words.length || wordCount == 1) {
+                for (int k = i; k < j; k++) {
+                    line.append(words[k]);
+                    if (k != j - 1) line.append(" ");
+                }
+                // Pad extra spaces at the end
+                while (line.length() < maxWidth) {
+                    line.append(" ");
+                }
+            } else {
+                // Case 2: Fully justify
+                int spacesBetweenWords = totalSpaces / (wordCount - 1);
+                int extraSpaces = totalSpaces % (wordCount - 1);
+
+                for (int k = i; k < j; k++) {
+                    line.append(words[k]);
+                    if (k != j - 1) {
+                        int spacesToApply = spacesBetweenWords + (extraSpaces-- > 0 ? 1 : 0);
+                        for (int s = 0; s < spacesToApply; s++) {
+                            line.append(" ");
+                        }
+                    }
+                }
+            }
+
+            result.add(line.toString());
+            i = j; // Move to the next line
+        }
+
+        return result;
+    }
+}
