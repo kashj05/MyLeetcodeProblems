@@ -1,0 +1,101 @@
+class Solution {
+    public ListNode reverse(ListNode head){
+        ListNode p=null,c=head,n=null;
+        while(c!=null){
+            n=c.next;
+            c.next=p;
+            p=c;
+            c=n;
+        }
+        return p;
+    }
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+
+        ListNode h1=l1,temp1=l1;
+        ListNode h2=l2,temp2=l2;
+        ListNode dummy=new ListNode(-1);
+        ListNode t=dummy;
+        while(temp1.next!=null)  temp1 = temp1.next;
+        while(temp2.next!=null)  temp2 = temp2.next;
+        int carry=0;
+        int sum=0;
+        while(temp1!=l1 && temp2!=l2){
+            sum=temp1.val + temp2.val + carry;
+            carry = sum/10;
+            ListNode k=new ListNode(sum%10);
+            t.next=k;
+            t=t.next;
+            while(h1.next!=temp1){
+                h1=h1.next;
+            }
+            temp1=h1;
+            h1=l1;
+            while(h2.next!=temp2){
+                h2=h2.next;
+            }
+            temp2=h2;
+            h2=l2;
+        }
+
+        sum=temp1.val + temp2.val + carry;
+        carry=sum/10;
+        ListNode p=new ListNode(sum%10);
+        t.next=p;
+        t=t.next;
+
+        while(temp1!=l1){
+            if(h1.next==temp1) {
+                temp1=h1;
+                sum=temp1.val + carry;
+                ListNode k=new ListNode(sum%10);
+                t.next=k;
+                t=t.next;
+                carry=sum/10;
+                break;
+            }
+            else{
+                while(h1.next!=temp1){
+                h1=h1.next;
+            }
+            temp1=h1;
+            h1=l1;
+            sum=temp1.val+carry;
+            ListNode k=new ListNode(sum%10);
+            t.next=k;
+            t=t.next;
+            carry=sum/10;
+            }
+        }
+          while(temp2!=l2){
+            if(h2.next==temp2) {
+                temp2=h2;
+                sum=temp2.val+carry;
+                ListNode k=new ListNode(sum%10);
+                t.next=k;
+                t=t.next;
+                carry=sum/10;
+                break;
+            }
+            else{
+                while(h2.next!=temp2){
+                h2=h2.next;
+            }
+            temp2=h2;
+            h2=l2;
+            sum=temp2.val+carry;
+                ListNode k=new ListNode(sum%10);
+                t.next=k;
+                t=t.next;
+                carry=sum/10;
+            }
+        }
+
+        if(carry!=0) {
+            ListNode k=new ListNode(carry);
+            t.next=k;
+            t=t.next;
+        }
+
+        return reverse(dummy.next);   
+    }
+}
