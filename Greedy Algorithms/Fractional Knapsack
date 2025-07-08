@@ -1,0 +1,58 @@
+import java.util.*;
+
+class Solution {
+    static class Item {
+        double value;
+        double weight;
+
+        Item(double v, double w) {
+            value = v;
+            weight = w;
+        }
+    }
+
+    public static double fractionalKnapsack(int[] val, int[] wt, int capacity) {
+        int n = val.length;
+        List<Item> items = new ArrayList<>();
+
+        // Step 1: Create Item objects
+        for (int i = 0; i < n; i++) {
+            items.add(new Item(val[i], wt[i]));
+        }
+
+        // Step 2: Sort by value/weight ratio in descending order
+        items.sort((a, b) -> Double.compare(b.value / b.weight, a.value / a.weight));
+
+        double totalValue = 0.0;
+        int remainingCapacity = capacity;
+
+        // Step 3: Greedily take items
+        for (Item item : items) {
+            if (remainingCapacity == 0) break;
+
+            if (item.weight <= remainingCapacity) {
+                // Take the whole item
+                totalValue += item.value;
+                remainingCapacity -= item.weight;
+            } else {
+                // Take fraction of item
+                double fraction = (double) remainingCapacity / item.weight;
+                totalValue += item.value * fraction;
+                remainingCapacity = 0;
+            }
+        }
+
+        // Step 4: Return with 6 decimal places
+        return Math.round(totalValue * 1e6) / 1e6;
+    }
+
+    // Example usage
+    public static void main(String[] args) {
+        int[] val = {60, 100, 120};
+        int[] wt = {10, 20, 30};
+        int capacity = 50;
+
+        double result = fractionalKnapsack(val, wt, capacity);
+        System.out.printf("%.6f\n", result); // Output: 240.000000
+    }
+}
