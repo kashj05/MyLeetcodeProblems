@@ -1,0 +1,43 @@
+import java.util.*;
+
+class Solution {
+    // Custom class to represent a meeting
+    static class Meeting {
+        int start;
+        int end;
+        int pos; // to track original position (optional)
+
+        Meeting(int start, int end, int pos) {
+            this.start = start;
+            this.end = end;
+            this.pos = pos;
+        }
+    }
+
+    public static int maxMeetings(int[] start, int[] end, int n) {
+        // Step 1: Create an array of Meeting objects
+        Meeting[] meetings = new Meeting[n];
+        for (int i = 0; i < n; i++) {
+            meetings[i] = new Meeting(start[i], end[i], i + 1);
+        }
+
+        // Step 2: Sort meetings by their end time
+        Arrays.sort(meetings, (a, b) -> a.end - b.end);
+
+        // Step 3: Initialize count and last end time
+        int count = 1; // Always select the first meeting
+        int lastEndTime = meetings[0].end;
+
+        // Step 4: Iterate through the rest of the meetings
+        for (int i = 1; i < n; i++) {
+            if (meetings[i].start > lastEndTime) {
+                // If current meeting starts after the last selected meeting
+                count++;
+                lastEndTime = meetings[i].end; // Update end time
+            }
+        }
+
+        // Step 5: Return the maximum number of meetings
+        return count;
+    }
+}
