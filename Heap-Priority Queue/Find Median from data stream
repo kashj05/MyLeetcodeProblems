@@ -1,0 +1,39 @@
+class MedianFinder {
+    // Max heap for the lower half of numbers
+    private PriorityQueue<Integer> lowerHalf;
+    // Min heap for the upper half of numbers
+    private PriorityQueue<Integer> upperHalf;
+
+    public MedianFinder() {
+        // Max heap for lower half (elements are negated to simulate max heap)
+        lowerHalf = new PriorityQueue<>((a, b) -> b - a);
+        // Min heap for upper half
+        upperHalf = new PriorityQueue<>();
+    }
+    public void addNum(int num) {
+        // First add to the appropriate heap
+        if (lowerHalf.isEmpty() || num < lowerHalf.peek()) 
+            lowerHalf.offer(num);
+        else 
+            upperHalf.offer(num);
+    
+        // Rebalance the heaps if necessary
+        // The lower half can have at most one more element than the upper half
+        if (lowerHalf.size() > upperHalf.size() + 1) {
+            upperHalf.offer(lowerHalf.poll());
+        }
+        // The upper half can't have more elements than the lower half
+        else if (lowerHalf.size() < upperHalf.size()) {
+            lowerHalf.offer(upperHalf.poll());
+        }
+    }
+    public double findMedian() {
+        if (lowerHalf.size() > upperHalf.size()) {
+            // Odd number of elements, lower half has one more
+            return lowerHalf.peek();
+        } else {
+            // Even number of elements, return average
+            return (lowerHalf.peek() + upperHalf.peek()) / 2.0;
+        }
+    }
+}
