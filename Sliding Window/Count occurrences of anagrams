@@ -1,0 +1,39 @@
+class Solution {
+    public int countAnagrams(String txt, String pat) {
+        int[] patFreq = new int[26];  // Pattern का frequency array
+        int[] winFreq = new int[26];  // Sliding window का frequency array
+        int k = pat.length();         // Window का size = Pattern का size
+        int count = 0;
+
+        // Step 1: Pattern की frequency map बनाते हैं
+        for (char ch : pat.toCharArray()) {
+            patFreq[ch - 'a']++;     // 'a' के लिए 0, 'b' के लिए 1, 'c' के लिए 2, etc.
+        }
+
+        // Step 2: Text पर sliding window चलाते हैं
+        for (int i = 0; i < txt.length(); i++) {
+            // Window में current character को जोड़ते हैं
+            winFreq[txt.charAt(i) - 'a']++;
+
+            // Step 3: अगर window size बढ़कर k हो गया तो check करते हैं
+            if (i >= k) {
+                winFreq[txt.charAt(i - k) - 'a']--;  // Window के बाहर वाला character हटाते हैं
+            }
+
+            // Step 4: अगर window का frequency pattern के frequency से match करता है, तो count बढ़ाते हैं
+            if (i >= k - 1 && matches(winFreq, patFreq)) {
+                count++;  // Anagram मिला
+            }
+        }
+
+        return count;  // Return count of anagrams found
+    }
+
+    // Helper method to compare both frequency maps
+    private boolean matches(int[] a, int[] b) {
+        for (int i = 0; i < 26; i++) {
+            if (a[i] != b[i]) return false;  // अगर किसी character की frequency match नहीं करती तो return false
+        }
+        return true;  // अगर सबकी frequency match करती है, तो return true
+    }
+}
