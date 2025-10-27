@@ -5,7 +5,6 @@ class Solution {
         int n = nums.length;
         long sum=0, maxSum=0;
         HashSet set = new HashSet<>();
-
         while(j<n){
             //adding val at j index only if it is not present in the set 
             //if it is present first remove all i index values till the current j index duplicate value is removed
