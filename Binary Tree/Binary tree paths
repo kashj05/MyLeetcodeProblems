@@ -6,7 +6,6 @@ class Solution {
         }
         return paths;
     }
-    
     private void dfs(TreeNode node, String path, List<String> paths) {
         if (node.left == null && node.right == null) {
             paths.add(path + node.val);
