@@ -10,7 +10,6 @@ class Solution {
                 freq[num]++;
             }
         }
-
         for (int num = 1; num <= size; num++) {
             if (freq[num] == 2) repeated = num;
             if (freq[num] == 0) missing = num;
