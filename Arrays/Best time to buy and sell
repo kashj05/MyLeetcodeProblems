@@ -12,8 +12,6 @@ class Solution {
             maxprofit=Math.max(profit,maxprofit);
         }
         return maxprofit;
-     
-
       }
         
     }
