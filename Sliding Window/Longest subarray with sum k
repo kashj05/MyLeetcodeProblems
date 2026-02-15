@@ -17,7 +17,6 @@ public class Solution {
             if (sum == k) {
                 maxLength = Math.max(maxLength, right - left + 1);
             }
-
             right++;
         }
 
