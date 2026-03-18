@@ -17,6 +17,5 @@ class Solution {
         createsubset(nums,index + 1,ans,tempans);//not taking first ele
 
     }
-
 }
 
