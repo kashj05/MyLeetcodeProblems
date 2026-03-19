@@ -13,7 +13,6 @@ class Solution {
             res.add(new ArrayList<>(tempList)); // Add valid combination
             return;
         }
-        
         for (int i = start; i < candidates.length; i++) {
             // Skip duplicate elements in the same recursive level
             if (i > start && candidates[i] == candidates[i - 1]) {
