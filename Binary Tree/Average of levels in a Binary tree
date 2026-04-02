@@ -19,7 +19,6 @@ class Solution {
             if (currentNode.left != null) queue.offer(currentNode.left);
             if (currentNode.right != null) queue.offer(currentNode.right);
           }
-
           // append the current level's average to the result array
           result.add(levelSum / levelSize);
         }
