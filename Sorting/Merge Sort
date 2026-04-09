@@ -2,7 +2,6 @@ MERGE SORT {T.C-O(nlogn)
 Similar like quick sort , stable, not in-place , slower than quick sort ,preferrable used for link list.
 Code:
 class MergeSort {
-    
     // Main function to sort an array using Merge Sort
     void mergeSort(int arr[], int left, int right) {
         if (left < right) {
