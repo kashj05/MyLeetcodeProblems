@@ -54,7 +54,6 @@ class MergeSort {
             i++;
             k++;
         }
-
         // Copy remaining elements of rightArray, if any
         while (j < rightSize) {
             arr[k] = rightArray[j];
