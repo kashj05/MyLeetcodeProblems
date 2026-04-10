@@ -25,7 +25,6 @@ class Solution {
                 count++;  // Anagram मिला
             }
         }
-
         return count;  // Return count of anagrams found
     }
 
