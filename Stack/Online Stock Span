@@ -9,6 +9,7 @@ class Pair{
         this.span=span;
     }
 }
+
 class StockSpanner {
     private Stack<Pair> stack;
 
