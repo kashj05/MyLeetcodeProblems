@@ -11,7 +11,7 @@ class Solution {
                 maxLen = Math.max(maxLen, len);
                 }
                 else{
-                    map.put(sum,i);
+                   map.put(sum,i);
             }
         }
         return maxLen;
