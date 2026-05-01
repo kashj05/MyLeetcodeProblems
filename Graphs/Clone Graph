@@ -21,8 +21,6 @@ class Solution {
         for (Node nei : node.neighbors) {
             copy.neighbors.add(dfs(nei, oldToNew));
         }
-
-
         return copy;
     }
 }
