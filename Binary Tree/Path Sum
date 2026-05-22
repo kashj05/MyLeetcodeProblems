@@ -18,7 +18,6 @@ class Solution {
         if(root == null){  // Base case
             return false;
         }
-        
         // If it's a leaf node, check if the current sum equals the targetSum
         if (root.left == null && root.right == null) {
             return targetSum == root.val;
