@@ -20,7 +20,6 @@ class Solution {
 
             list.add(rightMost.val);
         }
-
         return list;
     }
 }
