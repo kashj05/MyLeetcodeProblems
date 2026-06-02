@@ -43,7 +43,6 @@ class Solution {
         root.right=deleteNode(root.right,Is.val);
         }
         return root;
-
     }
     public TreeNode inorderSuccesor(TreeNode node){
         while(node.left!=null){
