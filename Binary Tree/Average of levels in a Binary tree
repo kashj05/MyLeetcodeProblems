@@ -9,7 +9,6 @@ class Solution {
           int levelSize = queue.size();
 
           double levelSum = 0.0;
-
           for (int i = 0; i < levelSize; i++) {
             TreeNode currentNode = queue.poll();
 
