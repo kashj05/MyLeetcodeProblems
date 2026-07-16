@@ -5,7 +5,6 @@ class Solution {
 
         return dfs(node, oldToNew);
     }
-
     private Node dfs(Node node, Map<Node, Node> oldToNew) {
         if (node == null) {
             return null;
