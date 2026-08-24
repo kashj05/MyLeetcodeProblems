@@ -8,7 +8,6 @@
  * }
  */
 public class BSTIterator {
-    
     private Stack<TreeNode> stack;
     public BSTIterator(TreeNode root) {
         stack = new Stack<>();
