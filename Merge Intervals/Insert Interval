@@ -19,7 +19,6 @@ class Solution {
             {
                 result.add(slot);
             } 
-            
             // if above conditions fail its an overlap since possibility of new interval existing in left & right of slot is checked
             // update lowest of start & highest of end & not insert
             else {
