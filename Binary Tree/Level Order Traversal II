@@ -10,7 +10,6 @@ class Solution {
         while(!queue.isEmpty()){
             int size = queue.size();
             List<Integer> level = new ArrayList<>();
-
             while(size>0){
                 TreeNode node = queue.poll();
                 level.add(node.val);
